@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\City;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,18 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('hobbies', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('telephone');
-            $table->string('password');
-            $table->integer('age');
-            $table->integer('sex');
-            $table->foreignId('city_id')->references('id')->on('cities');
+            $table->string('descript');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('hobbies');
     }
 };

@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Hobby extends Model
 {
     use HasFactory, HasUuid;
-
-    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -18,13 +16,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'age',
-        'sex',
-        'telephone',
-        'city_id'
+        'descript'
     ];
 
     /**
@@ -33,18 +25,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
-        'password'
+        'id'
     ];
 
-    public function city()
+    public function user()
     {
-        return $this->belongsTo(City::class, 'city_id', 'id');
-    }
-
-    public function hobbies()
-    {
-        return $this->hasMany(Hobby::class);
+        return $this->belongsTo(User::class);
     }
 
     public function getRouteKeyName()
