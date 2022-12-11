@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid();
             $table->string('name');
             $table->string('email')->unique();
             $table->integer('telephone');
             $table->string('password');
             $table->integer('age');
             $table->integer('sex');
-            $table->unsignedInteger('city_id');
+            $table->unsignedInteger('city_id')->nullable();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class City extends Model
 {
     use HasFactory, HasUuid;
 
-    protected $table = 'users';
+    protected $table = 'cities';
 
     /**
      * The attributes that are mass assignable.
@@ -20,13 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'age',
-        'sex',
-        'telephone',
-        'city_id'
+        'name'
     ];
 
     /**
@@ -35,13 +27,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
-        'password'
+        'id'
     ];
 
-    public function city()
+    public function users()
     {
-        return $this->belongsTo(City::class, 'city_id', 'id');
+        return $this->hasMany(User::class, 'city_id', 'id');
     }
 
     public function getRouteKeyName()
