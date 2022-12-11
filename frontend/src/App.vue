@@ -20,17 +20,6 @@ import HelloWorld from './components/HelloWorld.vue'
   <RouterView />
 </template>
 
-<script>
-export default {
-  mounted() {
-    this.axios.get('/api/hello-world')
-    .then(response => {
-      console.log(response.data);
-    })
-  },
-}
-</script>
-
 <style scoped>
 header {
   line-height: 1.5;
