@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Enums\UserSex;
 use App\Models\User;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 /**
  * Class UserService.
@@ -17,8 +19,20 @@ class UserService
         $this->userRepository = new UserRepository(new User());
     }
 
-    public function getUsers(): Collection
+    public function getUsers(): SupportCollection
     {
-        return $this->userRepository->getUsers();
+        $users = $this->userRepository->getUsers(['*'], ['city']);
+
+        return $users->map(function ($user) {
+            return [
+                'uuid' => $user->uuid,
+                'name' => $user->name,
+                'email' => $user->email,
+                'age' => $user->age,
+                'telephone' => $user->telephone,
+                'sex' => $user->sex->name,
+                'city' => $user->city->name
+            ];
+        });
     }
 }

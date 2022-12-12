@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserSex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,6 +36,10 @@ class User extends Authenticatable
     protected $hidden = [
         'id',
         'password'
+    ];
+
+    protected $casts = [
+        'sex' => UserSex::class
     ];
 
     public function city()
