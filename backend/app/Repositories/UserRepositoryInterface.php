@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+
 interface UserRepositoryInterface
 {
-    // Extend with your methods
+    public function getUsers(array|string $get = ['*'], array|string $with = []): Collection;
 }

@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use TimWassenburg\RepositoryGenerator\Repository\BaseRepository;
 
 /**
@@ -20,5 +21,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function __construct(User $model)
     {
         parent::__construct($model);
+    }
+
+    public function getUsers(array|string $get = ['*'], array|string $with = []): Collection
+    {
+        return $this->model->with($with)->get($get);
     }
 }
