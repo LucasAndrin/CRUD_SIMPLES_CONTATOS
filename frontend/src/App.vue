@@ -3,6 +3,8 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+  
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Your Site</a>

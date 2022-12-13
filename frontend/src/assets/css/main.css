@@ -1,37 +1,15 @@
-@import './base.css';
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+:root {
+    /* Colors */
+    --highlight-accent-color: var(--bs-indigo);
+    --background-accent-color: var(--bs-light);
 
-.container-vh-100 {
-    height: calc(100vh - 58px);
-}
+    /* Sizes */
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --normal-font-size: 1rem;
 
-.nav-link.router-link-active {
-    color: var(--bs-navbar-active-color);
-}
-
-.container {
-    margin-top: 4em;
-    margin-bottom: 4em;
-}
-
-.loading-skeleton {
-    color: transparent;
-    appearance: none;
-    -webkit-appearance: none;
-    background-color: #444;
-    border-color: #444;
-}
-
-@keyframes loading-skeleton {
-    from {
-        opacity: 0.4;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.loading-skeleton {
-    pointer-events: none;
-    animation: loading-skeleton 1s infinite alternate;
+    /* Default config */
+    --body-font: 'Nunito', sans-serif;
+    --z-fixed: 100;
 }
