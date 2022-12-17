@@ -23,6 +23,16 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($model);
     }
 
+    public function createUser(array $data): User
+    {
+        return $this->model->create($data);
+    }
+
+    public function createUsers(array $data): Collection
+    {
+        return $this->model->createMany($data);
+    }
+
     public function getUsers(array|string $get = ['*']): Collection
     {
         return $this->model->get($get);
@@ -46,15 +56,5 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getUsersFilterableWithCity(array|null $filter = null, array|string $get = ['*']): Collection
     {
         return $this->model->with('city')->filter($filter)->get($get);
-    }
-
-    public function createUser(array $data): User
-    {
-        return $this->model->create($data);
-    }
-
-    public function createUsers(array $data): Collection
-    {
-        return $this->model->createMany($data);
     }
 }
