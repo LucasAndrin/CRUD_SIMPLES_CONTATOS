@@ -8,14 +8,14 @@ import VueAxios from 'vue-axios'
 /**
  * Bootstrap Resources
  */
-import "bootstrap/scss/bootstrap.scss"
+import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
 /**
  * Additional Resources
  */
-import './assets/css/main.css'
-import './assets/css/styles.css'
+import './assets/scss/main.scss'
+import './assets/scss/styles.scss'
 
 const app = createApp(App)
 
