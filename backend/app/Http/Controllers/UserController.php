@@ -10,26 +10,26 @@ class UserController extends Controller
 {
     public function __construct(
         private UserService $userService
-    )
-    { }
+    ) { }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $users = $this->userService->getUsers();
+        $data = $this->userService->getUsers($request->all());
 
-        return response()->json($users, 200);
+        return response()->json($data, 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {

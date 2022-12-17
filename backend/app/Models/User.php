@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use App\Enums\UserSex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, Filterable;
 
     protected $table = 'users';
 

@@ -8,9 +8,6 @@ use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 
-/**
- * Class UserService.
- */
 class UserService
 {
     private UserRepository $userRepository;
@@ -19,9 +16,9 @@ class UserService
         $this->userRepository = new UserRepository(new User());
     }
 
-    public function getUsers(): SupportCollection
+    public function getUsers(array $filter): SupportCollection
     {
-        $users = $this->userRepository->getUsers(['*'], ['city']);
+        $users = $this->userRepository->getUsersFilterableWithCity($filter);
 
         return $users->map(function ($user) {
             return [
@@ -30,7 +27,7 @@ class UserService
                 'email' => $user->email,
                 'age' => $user->age,
                 'telephone' => $user->telephone,
-                'sex' => $user->sex->name,
+                'sex' => $user->sex,
                 'city' => $user->city->name
             ];
         });

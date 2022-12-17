@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
 {
-    public function getUsers(array|string $get = ['*'], array|string $with = []): Collection;
+
+    /**
+     * Generic getters
+     */
+    public function getUsers(array|string $get = ['*']): Collection;
+    public function getUsersWith(array|string|null $with = null, array|string $get = ['*']): Collection;
+    public function getUsersFilterable(array|null $filter = null, array|string $get = ['*']): Collection;
+    public function getUsersFilterableWith(array|null $filter = null, array|string|null $with = null, array|string $get = ['*']): Collection;
+
+    /**
+     * Specific getters
+     */
+    public function getUsersFilterableWithCity(array|null $filter = null, array|string $get = ['*']): Collection;
 }
