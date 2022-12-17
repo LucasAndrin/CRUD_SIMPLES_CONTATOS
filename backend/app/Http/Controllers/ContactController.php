@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     public function __construct(
-        private ContactService $userService
+        private ContactService $contactService
     ) { }
 
     /**
@@ -20,7 +20,7 @@ class ContactController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $data = $this->userService->getUsers($request->all());
+        $data = $this->contactService->getContacts($request->all());
 
         return response()->json($data, 200);
     }
@@ -33,7 +33,9 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->contactService->createContact($request->contact, $request->hobbies);
+
+        return response()->json($data, 200);
     }
 
     /**

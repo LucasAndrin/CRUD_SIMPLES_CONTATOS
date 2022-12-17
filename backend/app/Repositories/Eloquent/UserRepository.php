@@ -47,4 +47,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->with('city')->filter($filter)->get($get);
     }
+
+    public function createUser(array $data): User
+    {
+        return $this->model->create($data);
+    }
+
+    public function createUsers(array $data): Collection
+    {
+        return $this->model->createMany($data);
+    }
 }
