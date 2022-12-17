@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Enums\UserSex;
 use App\Models\User;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 
-class UserService
+class ContactService
 {
     private UserRepository $userRepository;
 

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UserService;
+use App\Services\ContactService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ContactController extends Controller
 {
     public function __construct(
-        private UserService $userService
+        private ContactService $userService
     ) { }
 
     /**
