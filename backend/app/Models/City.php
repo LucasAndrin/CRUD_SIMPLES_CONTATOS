@@ -6,10 +6,11 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
-    use HasFactory, HasUuid, Filterable;
+    use HasFactory, HasUuid, Filterable, SoftDeletes;
 
     protected $table = 'cities';
 
@@ -19,7 +20,7 @@ class City extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     /**
@@ -29,6 +30,12 @@ class City extends Model
      */
     protected $hidden = [
         'id'
+    ];
+
+    protected $cast = [
+        'created_at' => 'datetime:d/m/Y',
+        'updated_at' => 'datetime:d/m/Y',
+        'deleted_at' => 'datetime:d/m/Y'
     ];
 
     public function users()

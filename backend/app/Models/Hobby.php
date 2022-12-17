@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
 
 class Hobby extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, Filterable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +28,12 @@ class Hobby extends Model
      */
     protected $hidden = [
         'id'
+    ];
+
+    protected $cast = [
+        'created_at' => 'datetime:d/m/Y',
+        'updated_at' => 'datetime:d/m/Y',
+        'deleted_at' => 'datetime:d/m/Y'
     ];
 
     public function user()

@@ -5,12 +5,13 @@ namespace App\Models;
 use EloquentFilter\Filterable;
 use App\Enums\UserSex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use YourAppRocks\EloquentUuid\Traits\HasUuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasUuid, Filterable;
+    use HasFactory, HasUuid, Filterable, SoftDeletes;
 
     protected $table = 'users';
 
@@ -40,7 +41,10 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'sex' => UserSex::class
+        'sex' => UserSex::class,
+        'created_at' => 'datetime:d/m/Y',
+        'updated_at' => 'datetime:d/m/Y',
+        'deleted_at' => 'datetime:d/m/Y'
     ];
 
     public function city()

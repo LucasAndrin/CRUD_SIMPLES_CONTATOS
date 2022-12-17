@@ -57,4 +57,29 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->with('city')->filter($filter)->get($get);
     }
+
+    public function getUserById(int $id, array|string $get = ['*']): User
+    {
+        return $this->model->select($get)->find($id);
+    }
+
+    public function getUserByUuid(string $uuid, array|string $get = ['*']): User
+    {
+        return $this->model->select($get)->findByUuid($uuid);
+    }
+
+    public function getUserByUuidWith(string $uuid, array|string|null $with = null, array|string $get = ['*']): User
+    {
+        return $this->model->select($get)->with($with)->findByUuid($uuid);
+    }
+
+    public function updateUserByUser(User &$user, $data): int
+    {
+        return $user->update($data);
+    }
+
+    public function deleteUserByUuid(string $uuid): int
+    {
+        return $this->model->where('uuid', $uuid)->delete();
+    }
 }

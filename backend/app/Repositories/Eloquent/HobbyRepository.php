@@ -32,4 +32,19 @@ class HobbyRepository extends BaseRepository implements HobbyRepositoryInterface
     {
         return $user->hobbies()->createMany($data);
     }
+
+    public function getHobbyByUuid(string $uuid, array|string $get = ['*']): Hobby
+    {
+        return $this->model->select($get)->findByUuid($uuid);
+    }
+
+    public function getHobbiesByUuid(array $uuids, array|string $get = ['*']): Hobby
+    {
+        return $this->model->whereIn('uuid', $uuids)->get($get);
+    }
+
+    public function updateHobbyByHobby(Hobby &$hobby, array $data): int
+    {
+        return $hobby->update($data);
+    }
 }
