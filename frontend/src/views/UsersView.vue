@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-    <div class="col-md-10 mx-auto mt-5">
+    <div class="col-md-12 mx-auto mt-5">
         <table class="table table-dark table-striped rounded rounded overflow-hidden">
             <thead>
                 <tr>
@@ -44,7 +44,7 @@ export default {
                     <td>{{ users.telephone }}</td>
                     <td>{{ users.city }}</td>
                 </tr>
-                <tr v-for="index in 10" :key="index">
+                <tr v-for="index in 10" :key="index" v-else>
                     <td><div class="loading-skeleton rounded pt-4"></div></td>
                     <td><div class="loading-skeleton rounded pt-4"></div></td>
                     <td><div class="loading-skeleton rounded pt-4"></div></td>

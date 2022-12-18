@@ -43,7 +43,7 @@ class ContactService
                 'email' => $user->email,
                 'age' => $user->age,
                 'telephone' => $user->telephone,
-                'sex' => $user->sex,
+                'sex' => $user->sex->name,
                 'city' => $user->city->name
             ];
         });

@@ -8,6 +8,11 @@ const router = createRouter({
       path: '/',
       name: 'Contacts',
       component: UsersView
+    },
+    {
+      path: '/cities',
+      name: 'Cities',
+      // component: UsersView
     }
   ]
 })

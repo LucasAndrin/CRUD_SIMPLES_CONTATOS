@@ -1,16 +1,102 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+@import "../node_modules/bootstrap/scss/bootstrap";
 
-$highLightAccentColor: var(--bs-indigo);
-:root {
-    /* Colors */
-    --background-accent-color: var(--bs-light);
+$highLightAccentColor: $indigo;
+$backgroundAccentColor: $light;
+$headerHeight: 4rem;
+$navWidth: 68px;
+$normalFontSize: 1rem;
+$bodyFont: 'Nunito', sans-serif;
+$zFixed: 100;
+$breakPointWidth: 768px;
 
-    /* Sizes */
-    --header-height: 3rem;
-    --nav-width: 68px;
-    --normal-font-size: 1rem;
+/* Text colors */
+.text-indigo {
+    color: $indigo;
+}
 
-    /* Default config */
-    --body-font: 'Nunito', sans-serif;
-    --z-fixed: 100;
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+main {
+    font-family: $bodyFont;
+    font-size: $normalFontSize;
+    position: relative;
+    margin-top: $headerHeight;
+    padding: 0 1rem;
+    transition: .5s;
+}
+
+.navbar-top {
+    height: $headerHeight;
+    padding: 0 1.5rem;
+    z-index: $zFixed;
+    transition: .5s;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: $navWidth;
+    transition: .5s;
+    z-index: $zFixed;
+
+    .nav {
+
+        a.nav-link {
+            position: relative;
+    
+            &:hover {
+                color: $indigo-400;
+            }
+            
+            &:active {
+                color: $indigo-600;
+            }
+
+            &.router-link-active {
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    width: 2px;
+                    height: 32px;
+                    background-color: $indigo;
+                }
+            }
+        }
+    }
+    
+}
+
+.sidebar-show {
+    left: 0;
+}
+
+.main-pd {
+    padding-left: calc($navWidth + .5rem);
+}
+
+@media screen and (min-width: $breakPointWidth) {
+    main {
+        margin: calc($headerHeight + 1rem) 0 0 0;
+        padding-left: calc($navWidth + 1rem);
+    }
+    .navbar-top {
+        height: calc($headerHeight + 1rem);
+        padding: 0 2rem 0 calc($navWidth + 1.5rem);
+    }
+    .sidebar {
+        left: 0;
+    }
+    .sidebar-show {
+        width: calc($navWidth + 156px);
+    }
+    .main-pd {
+        padding-left: calc($navWidth + 11rem);
+    }
 }

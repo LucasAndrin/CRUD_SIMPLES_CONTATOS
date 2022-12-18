@@ -8,7 +8,6 @@ import VueAxios from 'vue-axios'
 /**
  * Bootstrap Resources
  */
-import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 
 /**
