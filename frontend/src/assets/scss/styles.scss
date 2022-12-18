@@ -1,3 +1,13 @@
+/* Text colors */
+.text-indigo {
+    color: $indigo;
+}
+
+/* Btn colors */
+.btn-indigo {
+    @include button-variant($indigo, $indigo);
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

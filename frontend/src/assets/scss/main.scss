@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import 'styles.scss';
 
 $highLightAccentColor: $indigo;
 $backgroundAccentColor: $light;
@@ -9,11 +10,6 @@ $normalFontSize: 1rem;
 $bodyFont: 'Nunito', sans-serif;
 $zFixed: 100;
 $breakPointWidth: 768px;
-
-/* Text colors */
-.text-indigo {
-    color: $indigo;
-}
 
 *,
 ::before,

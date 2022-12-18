@@ -14,7 +14,6 @@ import "bootstrap/dist/js/bootstrap.js"
  * Additional Resources
  */
 import './assets/scss/main.scss'
-import './assets/scss/styles.scss'
 
 const app = createApp(App)
 
