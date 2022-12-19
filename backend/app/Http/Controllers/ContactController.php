@@ -32,8 +32,9 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateContactRequest $request)
+    public function store(CreateContactRequest $request): JsonResponse
     {
+        ddh($request->all());
         $data = $this->contactService->createContact($request->contact, $request->hobbies);
 
         return response()->json($data, 200);
