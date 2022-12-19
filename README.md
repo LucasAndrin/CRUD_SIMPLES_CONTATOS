@@ -1,5 +1,5 @@
 # CRUD SIMPLES DE CONTATOS
-> Esta aplicação conta com a utilização dos framworks laravel, vue.js e  bootstrap estruturados em interface API.
+> Esta aplicação conta com a utilização dos frameworks Laravel, Vue.js e Bootstrap estruturados em interface API.
 > Nesta, um contato pode ter nenhum ou vários hobbies, além de sempre pertencer a uma cidade.
 
 ## Prompt
