@@ -37,9 +37,7 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
     
-    <div class="container-fluid">
-      <RouterView class="overflow-auto pt-3"/>
-    </div>
+    <RouterView class="container-fluid pt-3"/>
     
   </main>
 </template>

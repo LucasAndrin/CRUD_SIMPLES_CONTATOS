@@ -5,7 +5,13 @@
 
 /* Btn colors */
 .btn-indigo {
-    @include button-variant($indigo, $indigo);
+    @include button-outline-variant(
+        $indigo,
+        $indigo,
+        $light,
+        $indigo,
+        $indigo,
+    );
 }
 
 .btn-addon {
@@ -30,6 +36,35 @@
 /* Width */
 .w-fit-content {
     width: fit-content;
+}
+
+/* Table */
+.table-rounded {
+    thead tr {
+        &:first-child {
+            th {
+                &:first-child {
+                    border-top-left-radius: $border-radius-lg;
+                }
+                &:last-child {
+                    border-top-right-radius: $border-radius-lg;
+                }
+            }
+        }
+    }
+
+    tbody tr {
+        &:last-child {
+            td, th {
+                &:first-child {
+                    border-bottom-left-radius: $border-radius-lg;
+                }
+                &:last-child {
+                    border-bottom-right-radius: $border-radius-lg;
+                }
+            }
+        }
+    }
 }
 
 .cursor-pointer {

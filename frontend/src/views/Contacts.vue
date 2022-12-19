@@ -59,7 +59,7 @@ export default {
     <div>
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex gap-2">
-                <RouterLink to="/contacts/store" class="btn btn-indigo text-decoration-none" role="button">
+                <RouterLink to="/contacts/store" class="btn btn-indigo rounded-3 text-decoration-none" role="button">
                     <div class="d-flex gap-1">
                         <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
                         <div class="d-none d-md-inline-block">Add contact</div>
@@ -75,14 +75,14 @@ export default {
         </div>
     
         <div class="border rounded-3">
-            <table class="table table-hover">
+            <table class="table table-rounded table-hover">
                 <thead class="bg-light">
                     <tr>
-                        <td class="align-center px-3">Name</td>
-                        <td class="align-center px-3 d-none d-sm-table-cell">E-mail</td>
-                        <td class="align-center px-3 d-none d-md-table-cell">Telephone</td>
-                        <td class="align-center px-3 d-none d-lg-table-cell">City</td>
-                        <td></td>
+                        <th class="align-center px-3">Name</th>
+                        <th class="align-center px-3 d-none d-sm-table-cell">E-mail</th>
+                        <th class="align-center px-3 d-none d-md-table-cell">Telephone</th>
+                        <th class="align-center px-3 d-none d-lg-table-cell">City</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
