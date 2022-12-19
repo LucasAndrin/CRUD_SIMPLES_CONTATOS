@@ -1,10 +1,5 @@
 <script>
-import CreateContact from '../components/ViewContact.vue';
-
 export default {
-    components: {
-        CreateContact
-    },
 
     data() {
         return {
@@ -61,11 +56,6 @@ export default {
 </script>
 
 <template>
-    <!-- <button class="btn btn-indigo d-flex gap-2 mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#createContact" aria-controls="createContact">
-        <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
-        <div class="d-none d-md-inline-block">Add contact</div>
-    </button> -->
-
     <div>
         <div class="d-flex justify-content-between mb-3">
             <div class="d-flex gap-2">
@@ -84,7 +74,7 @@ export default {
             </div>
         </div>
     
-        <div class="border rounded-3 overflow-auto">
+        <div class="border rounded-3">
             <table class="table table-hover">
                 <thead class="bg-light">
                     <tr>
@@ -119,10 +109,5 @@ export default {
                 </tbody>
             </table>
         </div>
-    
-        <CreateContact
-            tabindex="-1"
-            id="createContact"
-        />
     </div>
 </template>
