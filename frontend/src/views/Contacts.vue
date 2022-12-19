@@ -22,13 +22,14 @@ export default {
         },
 
         getContacts(name = '') {
+            this.loading = true;
             this.axios.get('/api/users', {
                 params: {
                     name: name
                 }
-            })
-            .then(response => {
+            }).then(response => {
                 this.contacts = response.data;
+                this.loading = false;
             })
         },
 
@@ -74,7 +75,6 @@ export default {
                         <div class="d-none d-md-inline-block">Add contact</div>
                     </div>
                 </RouterLink>
-                <a class="btn btn-primary" href="#" role="button">Link</a>
             </div>
             <div class="input-group w-fit-content">
                 <input v-model="this.search" type="text" class="form-control border-end-0" placeholder="search">
@@ -88,27 +88,27 @@ export default {
             <table class="table table-hover">
                 <thead class="bg-light">
                     <tr>
-                        <td class="align-center">Name</td>
-                        <td class="align-center d-none d-sm-table-cell">E-mail</td>
-                        <td class="align-center d-none d-md-table-cell">Telephone</td>
-                        <td class="align-center d-none d-lg-table-cell">City</td>
+                        <td class="align-center px-3">Name</td>
+                        <td class="align-center px-3 d-none d-sm-table-cell">E-mail</td>
+                        <td class="align-center px-3 d-none d-md-table-cell">Telephone</td>
+                        <td class="align-center px-3 d-none d-lg-table-cell">City</td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(contact, index) in this.contacts" :key="index" v-if="this.contacts.length" @click="getContact(index)" class="cursor-pointer">
-                        <td class="align-center">{{ contact.name }}</td>
-                        <td class="align-center d-none d-sm-table-cell">{{ contact.email }}</td>
-                        <td class="align-center d-none d-md-table-cell">{{ contact.telephone }}</td>
-                        <td class="align-center d-none d-lg-table-cell">{{ contact.city }}</td>
-                        <td class="align-center">
+                        <td class="align-center p-3">{{ contact.name }}</td>
+                        <td class="align-center p-3 d-none d-sm-table-cell">{{ contact.email }}</td>
+                        <td class="align-center p-3 d-none d-md-table-cell">{{ contact.telephone }}</td>
+                        <td class="align-center p-3 d-none d-lg-table-cell">{{ contact.city }}</td>
+                        <td class="align-center p-3">
                             <div class="d-flex justify-content-center gap-3">
                                 <svg @click="deleteContact(index)" class="cursor-pointer" height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
                                 <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5L2 22l1.5-5.5L17 3z"/></svg>
                             </div>
                         </td>
                     </tr>
-                    <tr v-for="i in 10" :key="i" v-else>
+                    <tr v-for="i in 10" :key="i" v-else-if="this.loading">
                         <td><div class="loading-skeleton rounded pt-4"></div></td>
                         <td><div class="loading-skeleton rounded pt-4"></div></td>
                         <td><div class="loading-skeleton rounded pt-4"></div></td>
