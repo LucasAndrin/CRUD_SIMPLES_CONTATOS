@@ -15,10 +15,6 @@ export default {
     },
 
     methods: {
-        createContact() {
-
-        },
-
         getContacts(name = '') {
             this.contacts = [];
             this.axios.get('/api/users', {

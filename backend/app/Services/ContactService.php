@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\City;
 use App\Models\Hobby;
 use App\Models\User;
+use App\Repositories\Eloquent\CityRepository;
 use App\Repositories\Eloquent\HobbyRepository;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\Hash;
 
 class ContactService
 {
@@ -15,16 +19,35 @@ class ContactService
 
     private HobbyRepository $hobbyRepository;
 
+    private CityRepository $cityRepository;
+
     public function __construct() {
         $this->userRepository = new UserRepository(new User());
         $this->hobbyRepository = new HobbyRepository(new Hobby());
+        $this->cityRepository = new CityRepository(new City());
     }
 
-    public function createContact(array $contact, array $hobbies): array
+    public function createContact(Request $request): array
     {
-        $contact = $this->userRepository->createUser($contact);
+        $city = $this->cityRepository->getCityByUuid($request->city_uuid);
 
-        $hobbies = $this->hobbyRepository->createHobbiesByUser($contact, $hobbies);
+        $hobbies = $request->hobbies;
+
+        foreach ($hobbies as $key => $hobby) {
+            $hobbies[$key] = ['descript' => $hobby['descript']];
+        }
+
+        $contact = $this->userRepository->createUser([
+            'name' => $request->name,
+            'email' => $request->email,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password),
+            'age' => $request->age,
+            'sex' => $request->sex,
+            'city_id' => $city->id
+        ]);
+
+        $hobbies = $this->hobbyRepository->createHobbiesByUser($contact, $request->hobbies);
 
         return [
             'contact' => $contact,

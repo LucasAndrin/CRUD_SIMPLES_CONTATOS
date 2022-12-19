@@ -26,4 +26,9 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
     {
         return $this->model->filter($filter)->get($get);
     }
+
+    public function getCityByUuid(string $uuid): City
+    {
+        return $this->model->findByUuid($uuid);
+    }
 }

@@ -35,7 +35,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getUsers(array|string $get = ['*']): Collection
     {
-        return $this->model->get($get);
+        return $this->model->oldest()->get($get);
     }
 
     public function getUsersWith(array|string|null $with = null, array|string $get = ['*']): Collection
