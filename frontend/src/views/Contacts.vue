@@ -1,9 +1,12 @@
 <script>
+import { HalfCircleSpinner } from 'epic-spinners';
 export default {
+    components: {
+        HalfCircleSpinner: HalfCircleSpinner
+    },
 
     data() {
         return {
-            loading: false,
             contacts: [],
             selectContactUuid: null,
             createContactOffcanvas: null,
@@ -17,14 +20,13 @@ export default {
         },
 
         getContacts(name = '') {
-            this.loading = true;
+            this.contacts = [];
             this.axios.get('/api/users', {
                 params: {
                     name: name
                 }
             }).then(response => {
                 this.contacts = response.data;
-                this.loading = false;
             })
         },
 
@@ -38,7 +40,7 @@ export default {
                     'uuid': this.contacts[index].uuid
                 }
             }).then(response => {
-                this.contacts.splice(index, 1);
+               this.getContacts(this.search);
             })
         }
     },
@@ -75,7 +77,7 @@ export default {
         </div>
     
         <div class="border rounded-3">
-            <table class="table table-rounded table-hover">
+            <table class="table table-rounded table-hover mb-0">
                 <thead class="bg-light">
                     <tr>
                         <th class="align-center px-3">Name</th>
@@ -98,13 +100,15 @@ export default {
                             </div>
                         </td>
                     </tr>
-                    <tr v-for="i in 10" :key="i" v-else-if="this.loading">
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
-                        <td><div class="loading-skeleton rounded pt-4"></div></td>
+                    <tr v-else>
+                        <td colspan="5" class="p-5 align-center text-indigo">
+                            <HalfCircleSpinner
+                                class="m-auto"
+                                :animation-duration="1000"
+                                :size="100"
+                                color="currentColor"
+                            />
+                        </td>
                     </tr>
                 </tbody>
             </table>
