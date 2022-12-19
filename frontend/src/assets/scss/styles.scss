@@ -8,6 +8,30 @@
     @include button-variant($indigo, $indigo);
 }
 
+.btn-addon {
+    @include button-variant(
+        transparent,
+        $gray-400,
+        $gray-600,
+        transparent,
+        $gray-400,
+        $gray-600,
+        transparent,
+        $gray-400,
+        $gray-600
+    );
+}
+
+/* Offcanvas */
+.offcanvas-500 {
+    --bs-offcanvas-width: 500px
+}
+
+/* Width */
+.w-fit-content {
+    width: fit-content;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -20,8 +44,8 @@
     color: transparent;
     appearance: none;
     -webkit-appearance: none;
-    background-color: #444;
-    border-color: #444;
+    background-color: $gray-500;
+    border-color: $gray-500;
 }
 
 @keyframes loading-skeleton {

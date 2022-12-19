@@ -8,7 +8,6 @@ $headerHeight: 4rem;
 $navWidth: 68px;
 $normalFontSize: 1rem;
 $bodyFont: 'Nunito', sans-serif;
-$zFixed: 100;
 $breakPointWidth: 768px;
 
 *,
@@ -29,7 +28,6 @@ main {
 .navbar-top {
     height: $headerHeight;
     padding: 0 1.5rem;
-    z-index: $zFixed;
     transition: .5s;
 }
 
@@ -39,7 +37,6 @@ main {
     left: -30%;
     width: $navWidth;
     transition: .5s;
-    z-index: $zFixed;
 
     .nav {
 

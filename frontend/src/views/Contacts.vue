@@ -1,28 +1,55 @@
 <script>
+import CreateContact from '../components/ViewContact.vue';
+
 export default {
+    components: {
+        CreateContact
+    },
+
     data() {
         return {
             loading: false,
-            users: []
+            contacts: [],
+            selectContactUuid: null,
+            createContactOffcanvas: null,
+            search: null
         }
     },
 
     methods: {
-        getContacts() {
-            this.axios.get('/api/users')
-            .then(response => {
-                this.users = response.data;
+        createContact() {
+
+        },
+
+        getContacts(name = '') {
+            this.axios.get('/api/users', {
+                params: {
+                    name: name
+                }
             })
+            .then(response => {
+                this.contacts = response.data;
+            })
+        },
+
+        getContact(index) {
+            this.selectContactUuid = this.contacts[index].uuid
         },
 
         deleteContact(index) {
             this.axios.delete('/api/users/destroy', {
                 params: {
-                    'uuid': this.users[index].uuid
+                    'uuid': this.contacts[index].uuid
                 }
             }).then(response => {
-                this.users.splice(index, 1);
+                this.contacts.splice(index, 1);
             })
+        }
+    },
+
+    watch: {
+        search() {
+            this.getContacts(this.search);
         }
     },
 
@@ -33,14 +60,32 @@ export default {
 </script>
 
 <template>
-    <button class="btn btn-indigo d-flex gap-2 mb-3">
+    <!-- <button class="btn btn-indigo d-flex gap-2 mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#createContact" aria-controls="createContact">
         <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
-        Add contact
-    </button>
+        <div class="d-none d-md-inline-block">Add contact</div>
+    </button> -->
 
-    <div class="col-md-12 mx-auto">
+    <div>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="d-flex gap-2">
+                <RouterLink to="/contacts/store" class="btn btn-indigo text-decoration-none" role="button">
+                    <div class="d-flex gap-1">
+                        <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
+                        <div class="d-none d-md-inline-block">Add contact</div>
+                    </div>
+                </RouterLink>
+                <a class="btn btn-primary" href="#" role="button">Link</a>
+            </div>
+            <div class="input-group w-fit-content">
+                <input v-model="this.search" type="text" class="form-control border-end-0" placeholder="search">
+                <button class="btn btn-addon border-start-0 d-flex align-items-center" type="button">
+                    <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor" d="M5 1a4 4 0 1 0 2.452 7.16l2.694 2.693a.5.5 0 1 0 .707-.707L8.16 7.453A4 4 0 0 0 5 1ZM2 5a3 3 0 1 1 6 0a3 3 0 0 1-6 0Z"/></svg>
+                </button>
+            </div>
+        </div>
+    
         <div class="border rounded-3 overflow-auto">
-            <table class="table">
+            <table class="table table-hover">
                 <thead class="bg-light">
                     <tr>
                         <td class="align-center">Name</td>
@@ -51,11 +96,11 @@ export default {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, index) in this.users" :key="index" v-if="users.length">
-                        <td class="align-center">{{ user.name }}</td>
-                        <td class="align-center d-none d-sm-table-cell">{{ user.email }}</td>
-                        <td class="align-center d-none d-md-table-cell">{{ user.telephone }}</td>
-                        <td class="align-center d-none d-lg-table-cell">{{ user.city }}</td>
+                    <tr v-for="(contact, index) in this.contacts" :key="index" v-if="this.contacts.length" @click="getContact(index)" class="cursor-pointer">
+                        <td class="align-center">{{ contact.name }}</td>
+                        <td class="align-center d-none d-sm-table-cell">{{ contact.email }}</td>
+                        <td class="align-center d-none d-md-table-cell">{{ contact.telephone }}</td>
+                        <td class="align-center d-none d-lg-table-cell">{{ contact.city }}</td>
                         <td class="align-center">
                             <div class="d-flex justify-content-center gap-3">
                                 <svg @click="deleteContact(index)" class="cursor-pointer" height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
@@ -74,5 +119,10 @@ export default {
                 </tbody>
             </table>
         </div>
+    
+        <CreateContact
+            tabindex="-1"
+            id="createContact"
+        />
     </div>
 </template>

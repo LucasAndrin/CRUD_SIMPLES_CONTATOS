@@ -8,7 +8,7 @@ import VueAxios from 'vue-axios'
 /**
  * Bootstrap Resources
  */
-import "bootstrap/dist/js/bootstrap.js"
+import "bootstrap/dist/js/bootstrap.min.js"
 
 /**
  * Additional Resources

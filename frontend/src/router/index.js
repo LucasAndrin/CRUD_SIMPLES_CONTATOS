@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Contacts from '../views/Contacts.vue'
+import CreateContact from '../views/CreateContact.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,6 +9,11 @@ const router = createRouter({
       path: '/',
       name: 'Contacts',
       component: Contacts
+    },
+    {
+      path: '/contacts/store',
+      name: 'Add Contact',
+      component: CreateContact
     },
     {
       path: '/cities',

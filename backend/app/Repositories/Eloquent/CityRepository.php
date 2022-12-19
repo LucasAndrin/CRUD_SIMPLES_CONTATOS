@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\City;
 use App\Repositories\CityRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use TimWassenburg\RepositoryGenerator\Repository\BaseRepository;
 
 /**
@@ -19,5 +20,10 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
     public function __construct(City $model)
     {
         parent::__construct($model);
+    }
+
+    public function getCities(array|null $filter = null, array|string $get = ['*']): Collection
+    {
+        return $this->model->filter($filter)->get($get);
     }
 }
