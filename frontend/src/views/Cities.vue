@@ -10,7 +10,11 @@ export default {
             cities: [],
             search: null,
             loading: false,
-            selectedCity: null
+            createCityName: {
+                value: null,
+                validation: null
+            },
+            selectedCity: null,
         }
     },
 
@@ -34,6 +38,28 @@ export default {
                     title: 'Oops! something went wrong!',
                     showConfirmButton: false,
                 });
+            });
+        },
+
+        createCity() {
+            this.axios.post('/api/cities/store', {
+                'name': this.createCityName.value
+            }).then(response => {
+                this.$swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    timer: 5000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: 'City created with success!',
+                    showConfirmButton: false,
+                });
+                this.createCityName = {
+                    value: null,
+                    validation: null
+                };
+            }).catch(error => {
+                this.createCityName.validation = error.response.data.message;
             });
         },
 
@@ -77,12 +103,12 @@ export default {
     <div>
 
         <div class="d-flex justify-content-between gap-2 mb-3">
-            <RouterLink to="/contacts/store" class="btn btn-indigo rounded-3 text-decoration-none" role="button">
+            <button class="btn btn-indigo rounded-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#createCity">
                 <div class="d-flex gap-1">
                     <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
                     <div class="d-none d-md-inline-block">Add city</div>
                 </div>
-            </RouterLink>
+            </button>
             <form class="input-group w-fit-content" @submit.prevent="getCities()">
                 <input v-model="this.search" type="text" class="form-control border-end-0">
                 <button class="btn btn-addon border-start-0 d-flex align-items-center" type="button" @click.prevent="getCities()">
@@ -125,6 +151,31 @@ export default {
                 </tbody>
             </table>
         </div>
+
+        <form class="modal fade" id="createCity" tabindex="-1" aria-labelledby="createCityLabel" aria-hidden="true" @submit.prevent="createCity()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="createCityLabel">Add City</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input v-model="createCityName.value" type="text" class="form-control" :class="{'is-invalid': createCityName.validation}" placeholder="Name">
+                        <div class="valid-feedback">
+                            {{ createCityName.validation }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-indigo rounded-3 text-decoration-none" @click.prevent="createCity()">
+                            <div class="d-flex gap-1">
+                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
+                                <div class="d-none d-md-inline-block">Add city</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
         
     </div>
 </template>
