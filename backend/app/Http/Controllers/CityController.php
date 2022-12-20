@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyCityRequest;
 use App\Services\CityService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -82,10 +84,12 @@ class CityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(DestroyCityRequest $request): JsonResponse
     {
-        //
+        $data = $this->cityService->deleteCity($request->uuid);
+
+        return response()->json($data, 200);
     }
 }

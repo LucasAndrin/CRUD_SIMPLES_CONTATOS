@@ -31,4 +31,9 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
     {
         return $this->model->findByUuid($uuid);
     }
+
+    public function deleteCityByUuid(string $uuid): int
+    {
+        return $this->model->where('uuid', $uuid)->delete();
+    }
 }

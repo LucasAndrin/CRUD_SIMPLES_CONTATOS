@@ -24,4 +24,9 @@ class CityService
             'name'
         ]);
     }
+
+    public function deleteCity(string $uuid): int
+    {
+        return $this->cityRepository->deleteCityByUuid($uuid);
+    }
 }
