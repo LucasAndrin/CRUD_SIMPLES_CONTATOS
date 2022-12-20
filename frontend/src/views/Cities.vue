@@ -1,6 +1,10 @@
 <script>
 import { HalfCircleSpinner } from 'epic-spinners';
 export default {
+    components: {
+        HalfCircleSpinner: HalfCircleSpinner
+    },
+    
     data() {
         return {
             cities: [],
@@ -72,7 +76,7 @@ export default {
 <template>
     <div>
 
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between gap-2 mb-3">
             <RouterLink to="/contacts/store" class="btn btn-indigo rounded-3 text-decoration-none" role="button">
                 <div class="d-flex gap-1">
                     <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
@@ -96,7 +100,17 @@ export default {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(city, index) in this.cities" :key="index" v-if="this.cities.length">
+                    <tr v-if="this.loading">
+                        <td colspan="2" class="p-5 align-center text-indigo">
+                            <HalfCircleSpinner
+                                class="m-auto"
+                                :animation-duration="1000"
+                                :size="100"
+                                color="currentColor"
+                            />
+                        </td>
+                    </tr>
+                    <tr v-for="(city, index) in this.cities" :key="index" v-else-if="this.cities.length">
                         <td class="align-center p-3">{{ city.name }}</td>
                         <td class="align-center p-3">
                             <div class="d-flex justify-content-end gap-3">
@@ -105,8 +119,8 @@ export default {
                             </div>
                         </td>
                     </tr>
-                    <tr v-else-if="this.loading">
-                        <td class="align-center px-3"></td>
+                    <tr v-else>
+                        <td colspan="5" class="text-center align-center text-indigo">Nothing was found</td>
                     </tr>
                 </tbody>
             </table>

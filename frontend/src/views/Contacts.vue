@@ -15,12 +15,12 @@ export default {
     },
 
     methods: {
-        getContacts(name = '') {
+        getContacts() {
             this.contacts = [];
             this.loading = true;
             this.axios.get('/api/users', {
                 params: {
-                    name: name
+                    name: this.search
                 }
             }).then(response => {
                 this.contacts = response.data;
@@ -47,14 +47,8 @@ export default {
                     title: 'Contact deleted with success!',
                     showConfirmButton: false,
                 });
-               this.getContacts(this.search);
+               this.getContacts();
             })
-        }
-    },
-
-    watch: {
-        search() {
-            this.getContacts(this.search);
         }
     },
 
@@ -66,21 +60,19 @@ export default {
 
 <template>
     <div>
-        <div class="d-flex justify-content-between mb-3">
-            <div class="d-flex gap-2">
-                <RouterLink to="/contacts/store" class="btn btn-indigo rounded-3 text-decoration-none" role="button">
-                    <div class="d-flex gap-1">
-                        <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
-                        <div class="d-none d-md-inline-block">Add contact</div>
-                    </div>
-                </RouterLink>
-            </div>
-            <div class="input-group w-fit-content">
+        <div class="d-flex justify-content-between gap-2 mb-3">
+            <RouterLink to="/contacts/store" class="btn btn-indigo rounded-3 text-decoration-none" role="button">
+                <div class="d-flex gap-1">
+                    <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
+                    <div class="d-none d-md-inline-block">Add contact</div>
+                </div>
+            </RouterLink>
+            <form class="input-group w-fit-content" @submit.prevent="getContacts()">
                 <input v-model="this.search" type="text" class="form-control border-end-0" placeholder="search">
-                <button class="btn btn-addon border-start-0 d-flex align-items-center" type="button">
+                <button class="btn btn-addon border-start-0 d-flex align-items-center" type="button" @click.prevent="getContacts()">
                     <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12"><path fill="currentColor" d="M5 1a4 4 0 1 0 2.452 7.16l2.694 2.693a.5.5 0 1 0 .707-.707L8.16 7.453A4 4 0 0 0 5 1ZM2 5a3 3 0 1 1 6 0a3 3 0 0 1-6 0Z"/></svg>
                 </button>
-            </div>
+            </form>
         </div>
     
         <div class="border rounded-3">
