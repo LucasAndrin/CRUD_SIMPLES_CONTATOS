@@ -48,6 +48,7 @@ export default {
                     title: 'City delete with success!',
                     showConfirmButton: false,
                 });
+                this.getCities();
             }).catch(error => {
                 this.$swal.fire({
                     toast: true,
@@ -55,7 +56,7 @@ export default {
                     timer: 5000,
                     timerProgressBar: true,
                     icon: 'error',
-                    title: 'Oops! something went wrong!',
+                    title: error.response.data.message,
                     showConfirmButton: false,
                 });
             });

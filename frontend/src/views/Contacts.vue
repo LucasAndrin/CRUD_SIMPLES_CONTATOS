@@ -117,6 +117,9 @@ export default {
                             />
                         </td>
                     </tr>
+                    <tr v-else>
+                        <td colspan="5" class="text-center align-center text-indigo">Nothing was found</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

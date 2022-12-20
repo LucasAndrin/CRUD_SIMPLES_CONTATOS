@@ -56,6 +56,8 @@
     tbody tr {
         &:last-child {
             td, th {
+                border-bottom: none !important;
+
                 &:first-child {
                     border-bottom-left-radius: $border-radius-lg;
                 }
