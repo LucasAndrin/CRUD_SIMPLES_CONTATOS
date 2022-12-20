@@ -27,7 +27,16 @@ class CityService
 
     public function createCity(string $name): City
     {
-        return $this->cityRepository->createCity($name);
+        return $this->cityRepository->createCity([
+            'name' => $name
+        ]);
+    }
+
+    public function updateCity(string $uuid, string $name): int
+    {
+        return $this->cityRepository->updateCity($uuid, [
+            'name' => $name
+        ]);
     }
 
     public function deleteCity(string $uuid): int

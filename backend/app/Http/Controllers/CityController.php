@@ -32,7 +32,7 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateCityRequest $request)
+    public function store(CreateCityRequest $request): JsonResponse
     {
         $data = $this->cityService->createCity($request->name);
 
@@ -55,11 +55,13 @@ class CityController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(CreateCityRequest $request): JsonResponse
     {
-        //
+        $data = $this->cityService->updateCity($request->uuid, $request->name);
+
+        return response()->json($data, 200);
     }
 
     /**

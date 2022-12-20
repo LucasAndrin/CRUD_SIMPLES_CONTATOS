@@ -32,11 +32,14 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
         return $this->model->findByUuid($uuid);
     }
 
-    public function createCity(string $name): City
+    public function createCity(array $data): City
     {
-        return $this->model->create([
-            'name' => $name
-        ]);
+        return $this->model->create($data);
+    }
+
+    public function updateCity(string $uuid, array $data): int
+    {
+        return $this->model->where('uuid', $uuid)->update($data);
     }
 
     public function deleteCityByUuid(string $uuid): int
