@@ -57,6 +57,8 @@ export default {
                     title: 'Contact created with success!',
                     showConfirmButton: false,
                 });
+
+                this.$router.push({ name: 'Contacts' });
             }).catch(error => {
                 this.name.validation = null;
                 this.email.validation = null;
@@ -113,20 +115,20 @@ export default {
 
 <template>
     <form @submit.prevent="createContact()" class="col-12 mx-auto">
-        <div class="row mb-3">
-            <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
                 <input v-model="this.name.value" type="text" class="form-control" :class="{'is-invalid': this.name.validation}" placeholder="Name">
                 <div class="invalid-feedback">
                     {{ this.name.validation }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <input v-model="this.email.value" type="email" class="form-control" :class="{'is-invalid': this.email.validation}" placeholder="E-mail">
                 <div class="invalid-feedback">
                     {{ this.email.validation }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <input v-model="this.password.value" type="password" class="form-control" :class="{'is-invalid': this.password.validation}" placeholder="Password">
                 <div class="invalid-feedback">
                     {{ this.password.validation }}
@@ -134,20 +136,20 @@ export default {
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
                 <input v-model="this.telephone.value" type="number" class="form-control" :class="{'is-invalid': this.telephone.validation}" placeholder="Telephone">
                 <div class="invalid-feedback">
                     {{ this.telephone.validation }}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <input v-model="this.age.value" type="number" class="form-control" :class="{'is-invalid': this.age.validation}" placeholder="Age">
                 <div class="invalid-feedback">
                     {{ this.age.validation }}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <select v-model="this.city_uuid.value" class="form-select" :class="{'is-invalid': this.city_uuid.validation}">
                     <option v-for="(city, index) in this.cities" :value="city.uuid" :key="index">{{ city.name }}</option>
                 </select>
