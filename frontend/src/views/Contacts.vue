@@ -81,7 +81,7 @@ export default {
                     <tr>
                         <th class="align-center px-3">Name</th>
                         <th class="align-center px-3 d-none d-sm-table-cell">E-mail</th>
-                        <th class="align-center px-3 d-none d-md-table-cell">Telephone</th>
+                        <th class="align-center px-3 d-none d-xl-table-cell">Telephone</th>
                         <th class="align-center px-3 d-none d-lg-table-cell">City</th>
                         <th></th>
                     </tr>
@@ -90,7 +90,7 @@ export default {
                     <tr v-for="(contact, index) in this.contacts" :key="index" v-if="this.contacts.length" @click="getContact(index)" class="cursor-pointer">
                         <td class="align-center p-3">{{ contact.name }}</td>
                         <td class="align-center p-3 d-none d-sm-table-cell">{{ contact.email }}</td>
-                        <td class="align-center p-3 d-none d-md-table-cell">{{ contact.telephone }}</td>
+                        <td class="align-center p-3 d-none d-xl-table-cell">{{ contact.telephone }}</td>
                         <td class="align-center p-3 d-none d-lg-table-cell">{{ contact.city }}</td>
                         <td class="align-center p-3">
                             <div class="d-flex justify-content-center gap-3">
