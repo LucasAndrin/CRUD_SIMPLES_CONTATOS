@@ -24,7 +24,7 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
 
     public function getCities(array|null $filter = null, array|string $get = ['*']): Collection
     {
-        return $this->model->filter($filter)->get($get);
+        return $this->model->filter($filter)->oldest()->get($get);
     }
 
     public function getCityByUuid(string $uuid): City

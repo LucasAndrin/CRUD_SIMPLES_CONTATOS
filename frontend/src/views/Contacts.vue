@@ -9,20 +9,22 @@ export default {
         return {
             contacts: [],
             selectContactUuid: null,
-            createContactOffcanvas: null,
-            search: null
+            search: null,
+            loading: false
         }
     },
 
     methods: {
         getContacts(name = '') {
             this.contacts = [];
+            this.loading = true;
             this.axios.get('/api/users', {
                 params: {
                     name: name
                 }
             }).then(response => {
                 this.contacts = response.data;
+                this.loading = false;
             })
         },
 
@@ -36,6 +38,15 @@ export default {
                     'uuid': this.contacts[index].uuid
                 }
             }).then(response => {
+                this.$swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    timer: 5000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: 'Contact deleted with success!',
+                    showConfirmButton: false,
+                });
                this.getContacts(this.search);
             })
         }
@@ -96,7 +107,7 @@ export default {
                             </div>
                         </td>
                     </tr>
-                    <tr v-else>
+                    <tr v-else-if="this.loading">
                         <td colspan="5" class="p-5 align-center text-indigo">
                             <HalfCircleSpinner
                                 class="m-auto"

@@ -42,7 +42,7 @@
 .table-rounded {
     thead tr {
         &:first-child {
-            th {
+            th, td {
                 &:first-child {
                     border-top-left-radius: $border-radius-lg;
                 }
