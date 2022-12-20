@@ -35,27 +35,27 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getUsers(array|string $get = ['*']): Collection
     {
-        return $this->model->oldest()->get($get);
+        return $this->model->latest()->get($get);
     }
 
     public function getUsersWith(array|string|null $with = null, array|string $get = ['*']): Collection
     {
-        return $this->model->with($with)->get($get);
+        return $this->model->latest()->with($with)->get($get);
     }
 
     public function getUsersFilterable(array|null $filter = null, array|string $get = ['*']): Collection
     {
-        return $this->model->filter($filter)->get($get);
+        return $this->model->latest()->filter($filter)->get($get);
     }
 
     public function getUsersFilterableWith(array|null $filter = null, array|string|null $with = null, array|string $get = ['*']): Collection
     {
-        return $this->model->with($with)->filter($filter)->get($get);
+        return $this->model->latest()->with($with)->filter($filter)->get($get);
     }
 
     public function getUsersFilterableWithCity(array|null $filter = null, array|string $get = ['*']): Collection
     {
-        return $this->model->with('city')->filter($filter)->get($get);
+        return $this->model->latest()->with('city')->filter($filter)->get($get);
     }
 
     public function getUserById(int $id, array|string $get = ['*']): User

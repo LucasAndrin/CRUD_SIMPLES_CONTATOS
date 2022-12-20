@@ -24,12 +24,19 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
 
     public function getCities(array|null $filter = null, array|string $get = ['*']): Collection
     {
-        return $this->model->filter($filter)->oldest()->get($get);
+        return $this->model->latest()->filter($filter)->get($get);
     }
 
     public function getCityByUuid(string $uuid): City
     {
         return $this->model->findByUuid($uuid);
+    }
+
+    public function createCity(string $name): City
+    {
+        return $this->model->create([
+            'name' => $name
+        ]);
     }
 
     public function deleteCityByUuid(string $uuid): int
