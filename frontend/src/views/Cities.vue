@@ -10,7 +10,8 @@ export default {
             cities: [],
             search: null,
             loading: false,
-            createCityName: {
+            cityName: {
+                uuid: null,
                 value: null,
                 validation: null
             },
@@ -43,7 +44,7 @@ export default {
 
         createCity() {
             this.axios.post('/api/cities/store', {
-                'name': this.createCityName.value
+                'name': this.cityName.value
             }).then(response => {
                 this.$swal.fire({
                     toast: true,
@@ -54,13 +55,50 @@ export default {
                     title: 'City created with success!',
                     showConfirmButton: false,
                 });
-                this.createCityName = {
+                this.cityName = {
                     value: null,
                     validation: null
                 };
             }).catch(error => {
-                this.createCityName.validation = error.response.data.message;
+                this.cityName.validation = error.response.data.message;
             });
+        },
+
+        setCity(index) {
+            this.cityName.uuid = this.cities[index].uuid;
+            this.cityName.value = this.cities[index].name;
+        },
+
+        resetCity() {
+            this.cityName = {
+                uuid: null,
+                value: null,
+                validation: null
+            };
+        },
+
+        updateCity() {
+            this.axios.put('/api/cities/update', {
+                'uuid': this.cityName.uuid,
+                'name': this.cityName.value
+            }).then(response => {
+                this.$swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    timer: 5000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: 'City updated with success!',
+                    showConfirmButton: false,
+                });
+                this.cityName = {
+                    value: null,
+                    validation: null
+                };
+                this.getCities();
+            }).catch(error => {
+                this.cityName.validation = error.response.data.message;
+            })
         },
 
         deleteCity(index) {
@@ -103,7 +141,7 @@ export default {
     <div>
 
         <div class="d-flex justify-content-between gap-2 mb-3">
-            <button class="btn btn-indigo rounded-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#createCity">
+            <button class="btn btn-indigo rounded-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#createCity" @click="resetCity()">
                 <div class="d-flex gap-1">
                     <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
                     <div class="d-none d-md-inline-block">Add city</div>
@@ -140,8 +178,12 @@ export default {
                         <td class="align-center p-3">{{ city.name }}</td>
                         <td class="align-center p-3">
                             <div class="d-flex justify-content-end gap-3">
-                                <svg @click="deleteCity(index)" class="cursor-pointer" height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5L2 22l1.5-5.5L17 3z"/></svg>
+                                <a class="cursor-pointer text-decoration-none text-dark">
+                                    <svg @click="deleteCity(index)" class="cursor-pointer" height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
+                                </a>
+                                <a class="cursor-pointer text-decoration-none text-dark" data-bs-toggle="modal" data-bs-target="#updateCity" @click="setCity(index)">
+                                    <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5L2 22l1.5-5.5L17 3z"/></svg>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -160,9 +202,9 @@ export default {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input v-model="createCityName.value" type="text" class="form-control" :class="{'is-invalid': createCityName.validation}" placeholder="Name">
-                        <div class="valid-feedback">
-                            {{ createCityName.validation }}
+                        <input v-model="this.cityName.value" type="text" class="form-control" :class="{'is-invalid': this.cityName.validation}" placeholder="Name">
+                        <div class="invalid-feedback">
+                            {{ this.cityName.validation }}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -170,6 +212,31 @@ export default {
                             <div class="d-flex gap-1">
                                 <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
                                 <div class="d-none d-md-inline-block">Add city</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form class="modal fade" id="updateCity" tabindex="-1" aria-labelledby="updateCityLabel" aria-hidden="true" @submit.prevent="updateCity()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="updateCityLabel">Update City</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input v-model="this.cityName.value" type="text" class="form-control" :class="{'is-invalid': this.cityName.validation}" placeholder="Name">
+                        <div class="invalid-feedback">
+                            {{ this.cityName.validation }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-indigo rounded-3 text-decoration-none" @click.prevent="updateCity()">
+                            <div class="d-flex gap-1">
+                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z"/></svg>
+                                <div class="d-none d-md-inline-block">Update city</div>
                             </div>
                         </button>
                     </div>
